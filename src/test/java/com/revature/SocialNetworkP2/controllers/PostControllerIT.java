@@ -40,18 +40,18 @@ class PostControllerIT {
 
     @Test
     void createPostSuccess() throws Exception {
-//        Post post = new Post(1, timestamp, "", "", null, null);
-//        Post resultPost = new Post(1, timestamp, "", "", null, null);
-//        JsonResponse expectedResult = new JsonResponse("post created", resultPost);
-//        Mockito.when(this.postService.createPost(post)).thenReturn(resultPost);
-//
-//        RequestBuilder request = MockMvcRequestBuilders.post("/post")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(new ObjectMapper().writeValueAsString(post));
-//
-//        mvc.perform(request)
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(expectedResult)));
+        Post post = new Post(1, timestamp, "", "", null, null);
+        Post resultPost = new Post(1, timestamp, "", "", null, null);
+        JsonResponse expectedResult = new JsonResponse("post created", resultPost);
+        Mockito.when(this.postService.createPost(post)).thenReturn(resultPost);
+
+        RequestBuilder request = MockMvcRequestBuilders.post("/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(post));
+
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(expectedResult)));
     }
 
     @Test
