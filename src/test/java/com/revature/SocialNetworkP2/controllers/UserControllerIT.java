@@ -33,7 +33,6 @@ class UserControllerIT {
     @MockBean
     private UserService userService;
 
-
     @Test
     void getAllUsersNoUsers() throws Exception {
         List<User> users = new ArrayList<>();
