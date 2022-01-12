@@ -44,7 +44,7 @@ class SessionControllerIT {
 
         RequestBuilder request = MockMvcRequestBuilders.post("/session")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(validUser));
+                .content(new ObjectMapper().writeValueAsString(requestBody));
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
