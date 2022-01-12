@@ -77,7 +77,6 @@ public class PictureController {
         pic = this.pictureService.createPictureByUserId(pic,userId);
         System.out.println(pic);
         System.out.println(pic.getPictureLink());
-        //return ResponseEntity.ok(new JsonResponse( "Uploaded!" ,pic.getPictureId()));
         return ResponseEntity.ok(new JsonResponse( "Uploaded!" ,pic.getPictureLink()));
     }
 
@@ -121,6 +120,12 @@ public class PictureController {
     public ResponseEntity<JsonResponse> getProfilePicture(@PathVariable Integer userId) {
         List<Picture> pictures = this.pictureService.getAllByUserId(userId);
 
+        if(pictures == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponse("bad request", pictures));
+        }
+
         Picture picture = new Picture(), profile_picture = new Picture();
         for(int i=0;i<pictures.size();i++)
         {
@@ -129,16 +134,10 @@ public class PictureController {
                 profile_picture = picture;
         }
 
-        if(pictures == null)
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new JsonResponse("bad request", pictures));
-
         return ResponseEntity.ok(new JsonResponse("successful get request", profile_picture));
     }
 
     @DeleteMapping(value = "{pictureId}")
-    //public ResponseEntity<JsonResponse> deletePicture(@RequestParam Integer pictureId) {
         public ResponseEntity<JsonResponse> deletePicture(@PathVariable Integer pictureId) {
         if(!this.pictureService.deletePicture(pictureId))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResponse("There is no picture with ID " + pictureId, null));

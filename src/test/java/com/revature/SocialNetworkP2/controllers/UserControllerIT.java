@@ -41,9 +41,7 @@ class UserControllerIT {
         JsonResponse expectedResult = new JsonResponse("bad request", null);
         Mockito.when(this.userService.getAllUsers()).thenReturn(null);
 
-        mvc.perform(MockMvcRequestBuilders.get("/user")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(new ObjectMapper().writeValueAsString(users)))
+        mvc.perform(MockMvcRequestBuilders.get("/user"))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(expectedResult)));
     }
@@ -56,11 +54,7 @@ class UserControllerIT {
         JsonResponse expectedResult = new JsonResponse("succssful get request", users);
         Mockito.when(this.userService.getAllUsers()).thenReturn(users);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/user")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(users));
-
-        mvc.perform(request)
+        mvc.perform(MockMvcRequestBuilders.get("/user"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(expectedResult)));
     }
