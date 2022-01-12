@@ -30,14 +30,10 @@ public class ForgotPasswordController {
     @Autowired
     private UserService userService;
 
-
-
     @PostMapping(value = "forgotPassword")
     public ResponseEntity<JsonResponse> processForgotPassword(@RequestBody User request, Model model) {
         String email = request.getEmail();
         String token = RandomString.make(30);
-
-
 
         try {
             userService.updateResetPasswordToken(token, email);
@@ -54,8 +50,6 @@ public class ForgotPasswordController {
 
         return ResponseEntity.ok(new JsonResponse("email successfully created", email));
     }
-
-
 
     public void sendEmail (String email, String resetPasswordLink, String token) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
@@ -89,8 +83,7 @@ public class ForgotPasswordController {
         String password = request.getPassword();
 
         User user = userService.getByResetPasswordToken(token);
-        System.out.println("found user"+user);
-
+        //System.out.println("found user"+user);
 
         if (user == null) {
 
@@ -100,8 +93,5 @@ public class ForgotPasswordController {
         }
 
         return ResponseEntity.ok(new JsonResponse("reset successful", token));
-
     }
-
-
 }

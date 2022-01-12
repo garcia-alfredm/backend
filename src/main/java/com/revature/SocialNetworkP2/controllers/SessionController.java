@@ -23,8 +23,8 @@ public class SessionController {
     }
 
     @PostMapping
-    public ResponseEntity<JsonResponse> login(HttpSession httpSession, @RequestBody User resquestBody){
-        User user = this.userService.validateCredentials(resquestBody);
+    public ResponseEntity<JsonResponse> login(HttpSession httpSession, @RequestBody User requestBody){
+        User user = this.userService.validateCredentials(requestBody);
 
         if(user == null)
             return ResponseEntity
@@ -56,8 +56,9 @@ public class SessionController {
     }
 
     @DeleteMapping
-    public JsonResponse logout(HttpSession httpSession){
+    public ResponseEntity<JsonResponse> logout(HttpSession httpSession){
         httpSession.invalidate();
-        return new JsonResponse("session closed", null);
+
+        return ResponseEntity.ok(new JsonResponse("session closed", null));
     }
 }
