@@ -109,7 +109,7 @@ class PostControllerIT {
         JsonResponse expectedResult = new JsonResponse("successful get request", posts);
         Mockito.when(this.postService.getAllByUserId(user.getUserId())).thenReturn(posts);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/post/1");
+        RequestBuilder request = MockMvcRequestBuilders.get("/post/user/1");
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -123,7 +123,7 @@ class PostControllerIT {
         JsonResponse expectedResult = new JsonResponse("bad request", posts);
         Mockito.when(this.postService.getAllByUserId(user.getUserId())).thenReturn(posts);
 
-        RequestBuilder request = MockMvcRequestBuilders.get("/post/2");
+        RequestBuilder request = MockMvcRequestBuilders.get("/post/user/2");
 
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
