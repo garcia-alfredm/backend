@@ -24,10 +24,20 @@ public class PictureService {
 
     /******************************   METHODS   ******************************/
 
+    /**
+     * This method calls the picture repository layer to retrieve
+     * all pictures
+     * @return List of Pictures representing all pictures
+     */
     public List<Picture> getAllPictures() {
         return this.pictureDao.findAll();
     }
 
+    /**
+     * This method calls the picture repository layer to retrieve one picture
+     * @param pictureId Represents the id of the picture to retrieve
+     * @return A Picture object representing the picture retrieved
+     */
     public Picture getOnePicture(Integer pictureId){
         Picture picture = this.pictureDao.findById(pictureId).orElse(null);
 
@@ -37,10 +47,21 @@ public class PictureService {
         return picture;
     }
 
+    /**
+     * This method calls the picture repository layer to save a picture
+     * @param picture a Picture object representing the picture to save
+     * @return a Picture object representing picture saved
+     */
     public Picture createOnePicture(Picture picture){
         return this.pictureDao.save(picture);
     }
 
+    /**
+     * This method calls the picture repository
+     * to update the status of the profile picture
+     * @param pictureId Represents the id of the picture to update
+     * @return Picture object representing the picture updated
+     */
     public Picture updatePictureFalse(Integer pictureId)
     {
         if(!this.pictureDao.existsById(pictureId))
@@ -52,6 +73,12 @@ public class PictureService {
         return pic;
     }
 
+    /**
+     * This method calls the picture repository layer
+     * to update a picture as the profile picture
+     * @param pictureId Represents the id of the picture to update
+     * @return Picture object representing picture updated
+     */
     public Picture updatePictureTrue(Integer pictureId)
     {
         if(!this.pictureDao.existsById(pictureId))
@@ -63,6 +90,13 @@ public class PictureService {
         return pic;
     }
 
+    /**
+     * Method calls the user repository layer to create
+     * a new picture by the user id
+     * @param picture
+     * @param userId
+     * @return
+     */
     public Picture createPictureByUserId(Picture picture, Integer userId)
     {
         User user = this.userDao.getById(userId);
@@ -74,6 +108,12 @@ public class PictureService {
         return this.pictureDao.save(picture);
     }
 
+    /**
+     * This method calls the user repository to
+     * get the user by user id
+     * @param userId Represents the user id
+     * @return User object representing the user
+     */
     public User getByUserId(Integer userId){
         User user = this.userDao.getById(userId);
         if(user == null)
@@ -82,6 +122,11 @@ public class PictureService {
         return user;
     }
 
+    /**
+     * Calls the picture repository to delete a picture
+     * @param pictureId Represents the id of the picture to delete
+     * @return Boolean value
+     */
     public Boolean deletePicture(Integer pictureId){
         if(getOnePicture(pictureId) == null)
             return false;

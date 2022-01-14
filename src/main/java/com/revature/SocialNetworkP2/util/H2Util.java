@@ -32,6 +32,7 @@ public class H2Util {
         }
     }
 
+
     public static void dropTable(){
         try {
             Connection conn = DriverManager.getConnection(url, username, password);

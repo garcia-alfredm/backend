@@ -69,11 +69,6 @@ class PictureControllerIT {
     }
 
     @Test
-    void uploadFile() {
-        //Todo
-    }
-
-    @Test
     void getAllPicturesSuccess() throws Exception {
         List<Picture> pictures = new ArrayList<>();
         pictures.add(new Picture(1, "dummylink.com/picture", false, null));
