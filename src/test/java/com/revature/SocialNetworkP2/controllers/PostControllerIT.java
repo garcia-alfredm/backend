@@ -35,8 +35,8 @@ class PostControllerIT {
 
     @Test
     void createPostSuccess() throws Exception {
-        Post requestBody = new Post(1, timestamp, "hello", "something", null, null);
-        Post resultPost = new Post(1, timestamp, "hello", "something", null,  null);
+        Post requestBody = new Post(1, timestamp, "", "", null, null);
+        Post resultPost = new Post(1, timestamp, "", "", null,  null);
         JsonResponse expectedResult = new JsonResponse("post created", resultPost);
         // todo figure out why mockito isn't working, use sout in controller to get return post
         Mockito.when(this.postService.createPost(requestBody)).thenReturn(resultPost);
