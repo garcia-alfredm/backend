@@ -4,18 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.SocialNetworkP2.models.JsonResponse;
 import com.revature.SocialNetworkP2.models.Post;
 import com.revature.SocialNetworkP2.models.User;
-import com.revature.SocialNetworkP2.repository.PostDao;
 import com.revature.SocialNetworkP2.services.PostService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,10 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(PostController.class)
 class PostControllerIT {
@@ -43,8 +35,8 @@ class PostControllerIT {
 
     @Test
     void createPostSuccess() throws Exception {
-        Post requestBody = new Post(1, timestamp, "", "", null, null);
-        Post resultPost = new Post(1, timestamp, "", "", null, null);
+        Post requestBody = new Post(1, timestamp, "hello", "something", null, null);
+        Post resultPost = new Post(1, timestamp, "hello", "something", null,  null);
         JsonResponse expectedResult = new JsonResponse("post created", resultPost);
         // todo figure out why mockito isn't working, use sout in controller to get return post
         Mockito.when(this.postService.createPost(requestBody)).thenReturn(resultPost);
