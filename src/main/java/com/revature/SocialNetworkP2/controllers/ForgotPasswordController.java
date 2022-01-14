@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -29,21 +28,24 @@ public class ForgotPasswordController {
 
     @Autowired
     private UserService userService;
-
+    /**
+     * This method is used to generate a new reset password token.
+     * @param request takes the current post request and uses the body as the User model
+     * @return ResponseEntity<JsonResponse> this returns the status of the JsonResponse
+     */
     @PostMapping(value = "forgotPassword")
-    public ResponseEntity<JsonResponse> processForgotPassword(@RequestBody User request, Model model) {
+    public ResponseEntity<JsonResponse> processForgotPassword(@RequestBody User request) {
         String email = request.getEmail();
         String token = RandomString.make(30);
 
         try {
             userService.updateResetPasswordToken(token, email);
             String resetPasswordLink = "http://localhost:4200/resetPassword";
-//            System.out.println("resetpass" + resetPasswordLink );
+
             sendEmail(email, resetPasswordLink, token);
-            model.addAttribute("message", "We have sent a reset password link to your email, Please use it quickly.");
 
         } catch (UnsupportedEncodingException | MessagingException e) {
-            model.addAttribute("error", "Error while sending email");
+            ResponseEntity.noContent();
         } catch ( Exception e) {
             logger.warn(e);
         }
@@ -51,6 +53,14 @@ public class ForgotPasswordController {
         return ResponseEntity.ok(new JsonResponse("email successfully created", email));
     }
 
+    /**
+     * This method is used to send Emails
+     * @param email This param Takes user email from post request
+     * @param resetPasswordLink This param takes in the resetPassword Link
+     * @param token This param takes the randomly generated token
+     * @throws MessagingException for messaging errors
+     * @throws UnsupportedEncodingException for unsupported encoding error
+     */
     public void sendEmail (String email, String resetPasswordLink, String token) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -77,8 +87,13 @@ public class ForgotPasswordController {
         mailSender.send(message);
     }
 
+    /**
+     * This method completes the password reset
+     * @param request takes the current post request and uses the body as the User model
+     * @return ResponseEntity<JsonResponse> this returns the status of the JsonResponse
+     */
     @PostMapping(value = "resetPassword")
-    public ResponseEntity<JsonResponse> processResetPassword(@RequestBody User request,Model model) {
+    public ResponseEntity<JsonResponse> processResetPassword(@RequestBody User request) {
         String token = request.getResetPasswordToken();
         String password = request.getPassword();
 
