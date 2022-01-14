@@ -88,7 +88,7 @@ public class UserService {
     }
 
     public User validateCredentials(User user){
-        User userFromDb = getByUsername(user.getUsername());
+            User userFromDb = getByUsername(user.getUsername());
 
         if(userFromDb == null)
             return null;

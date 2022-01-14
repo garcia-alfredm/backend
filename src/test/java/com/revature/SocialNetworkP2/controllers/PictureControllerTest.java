@@ -48,12 +48,6 @@ class PictureControllerTest {
     }
 
     @Test
-    void uploadFile() {
-        //Todo uploadFile controller test
-
-    }
-
-    @Test
     void getAllPicturesSuccess() {
         List<Picture> pictures = new ArrayList<>();
         pictures.add(new Picture(1, "dummylink.com/picture", false, null));
