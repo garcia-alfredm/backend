@@ -3,10 +3,7 @@ package com.revature.SocialNetworkP2.services;
 import com.revature.SocialNetworkP2.models.Post;
 import com.revature.SocialNetworkP2.repository.PageableDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +20,8 @@ public class PageableService {
 
     public List<Post> getAllPageablePostsByUserId(Integer userId, Integer pageNumber){
         int pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("postId").descending());
 
-        //Slice<Post> pagedposts = this.pageableDao.findByUserUserId(userId, pageable);
         Slice<Post> pagedposts = this.pageableDao.findByUserUserId(userId, pageable);
         return pagedposts.toList();
 
@@ -33,7 +29,7 @@ public class PageableService {
 
     public List<Post> getAllPageablePosts(Integer pageNumber){
         int pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("postId").descending());
 
         Page<Post> pagedposts = this.pageableDao.findAll(pageable);
 
