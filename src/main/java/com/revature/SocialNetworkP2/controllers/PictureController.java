@@ -23,16 +23,15 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "picture")
 @CrossOrigin(origins = "http://localhost:4200",allowCredentials = "true")
-//@CrossOrigin(origins = "*",allowCredentials = "true")
 public class PictureController {
 
     private PictureService pictureService;
     private UserService userService;
 
-    private final String awsID = "AKIA24ZT7ASW4LRLBMFF";
-    private final String secretKet = "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";
-    private final String region="us-east-2";
-    private final String bucketName = "mmwm-jwa-s3";
+    private final String awsID = "";
+    private final String secretKet = "";
+    private final String region="";
+    private final String bucketName = "";
 
     BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsID,secretKet);
     AmazonS3 s3Client = AmazonS3ClientBuilder
