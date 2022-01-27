@@ -1,4 +1,4 @@
-# Project1
+# Project2
 ## Project Description
 This is a deployable full stack, social media application. Users are allowed to signup, post their interests along with pictures and view all
 other uses media. Users can also update their information and change their password. This repository consists of the backend of the 
